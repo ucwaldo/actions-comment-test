@@ -1,15 +1,13 @@
 name: CI Test
 on:
-  pull_request:
-    types: [opened, synchronize]
   issue_comment:
     types: [created]
 
 jobs:
-  unit-tests:
+  tests:
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/test')
+    steps:
+    runs-on: ubuntu-latest
     steps:
       - run: 'echo "run unit tests"'
 
-  acceptance-tests:
-    steps:
-      - run: 'echo "run acceptance tests"'
