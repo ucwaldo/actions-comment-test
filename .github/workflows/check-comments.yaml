@@ -8,8 +8,9 @@ on:
 jobs:
   check_comments:
     runs-on: ubuntu-latest
+    if: github.event.issue.pull_request
     outputs:
-      kf_trigger: ${{ steps.check.outputs.triggered }}
+      test_trigger: ${{ steps.check.outputs.triggered }}
     steps:
       - uses: khan/pull-request-comment-trigger@master
         id: check
@@ -18,5 +19,5 @@ jobs:
 
   tests:
     needs: [check_comments]
-    if: ${{ needs.check_comments.outputs.kf_trigger == 'true' }}
+    if: ${{ needs.check_comments.outputs.test_trigger == 'true' }}
     uses: ./.github/workflows/ci-test.yml
