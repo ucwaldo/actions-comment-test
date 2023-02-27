@@ -1,5 +1,9 @@
 name: Check comments
-on: workflow_call
+on:
+  pull_request:
+    types: [opened, synchronize]
+  issue_comment:
+    types: [created]
 
 jobs:
   check_comments:

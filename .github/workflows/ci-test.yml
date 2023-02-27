@@ -1,9 +1,5 @@
 name: CI Test
-on:
-  pull_request:
-    types: [opened, synchronize]
-  issue_comment:
-    types: [created]
+on: workflow_call
 
 jobs:
   unit-tests:
