@@ -1,18 +1,15 @@
-name: Pull Request Comment Trigger Example
+name: CI Test
 on:
   pull_request:
-    types: [opened, edited]
+    types: [opened, synchronize]
   issue_comment:
     types: [created]
 
 jobs:
-  hello:
-    runs-on: ubuntu-latest
+  unit-tests:
     steps:
-      - uses: khan/pull-request-comment-trigger@master
-        id: check
-        with:
-          trigger: '[run-tests]'
-      - run: 'echo Found it!'
-        if: steps.check.outputs.triggered == 'true'
+      - run: 'echo "run unit tests"'
 
+  acceptance-tests:
+    steps:
+      - run: 'echo "run acceptance tests"'
