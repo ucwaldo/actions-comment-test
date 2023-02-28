@@ -5,10 +5,9 @@ on:
 
 jobs:
   tests:
-    steps:
     runs-on: ubuntu-latest
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/test')
     steps:
       - name: Execute tests
-        if: github.event.issue.pull_request && contains(github.event.comment.body, '/test')
         run: 'echo "run unit tests"'
 
