@@ -9,6 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.issue.pull_request && contains(github.event.comment.body, '/test')
     steps:
+      - name: Set commit status as pending
+        uses: myrotvorets/set-commit-status-action@master
+        with:
+          sha: ${{ steps.comment-branch.outputs.head_sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: pending
       - name: Execute tests
         run: 'echo "run unit tests"'
+      - name: Set final commit status
+        uses: myrotvorets/set-commit-status-action@master
+        if: always()
+        with:
+          sha: ${{ steps.comment-branch.outputs.head_sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
 
